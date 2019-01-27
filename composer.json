@@ -1,0 +1,17 @@
+{
+    "name": "kushta.bg",
+    "description": "Website kushta.bg",
+    "type": "website",
+    "require": {
+        "slim/slim": "^3.0",
+        "slim/twig-view": "^2.4",
+        "slim/csrf": "^0.8.3",
+        "ext-pdo": "*",
+        "vlucas/phpdotenv": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    }
+}

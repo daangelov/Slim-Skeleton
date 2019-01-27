@@ -1,0 +1,15 @@
+{% extends 'layouts/app.twig' %}
+
+{% block content %}
+    <div>
+        {% for project in projects %}
+            <p>{{ project.id }} {{ project.name }}</p>
+        {% endfor %}
+    </div>
+    <div>
+        {% if project %}
+            <p>{{ project.id }}</p>
+            <p>{{ project.name }}</p>
+        {% endif %}
+    </div>
+{% endblock %}
