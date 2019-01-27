@@ -1,1 +1,3 @@
-# Slim skeletn for easy project start
+# PHP Slim Skeleton
+
+## Easy project starting
