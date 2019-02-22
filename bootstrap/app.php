@@ -2,23 +2,32 @@
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
+use App\Utils\Db;
+use App\Utils\Session;
+use Dotenv\Dotenv;
+use Dotenv\Environment\Adapter\EnvConstAdapter;
+use Dotenv\Environment\Adapter\ServerConstAdapter;
+use Dotenv\Environment\DotenvFactory;
+use Slim\App;
+
 // Load environment variables form .env
-$dotenv = Dotenv\Dotenv::create(dirname(__DIR__));
+$factory = new DotenvFactory([new EnvConstAdapter(), new ServerConstAdapter()]);
+$dotenv = Dotenv::create(dirname(__DIR__), null, $factory);
 $dotenv->load();
 
 // Connect to database
-$db = \App\Utils\Db::getConnection();
+$db = Db::getConnection();
 
 // Start session
-$sessionHandler = new App\Utils\Session($db);
+$sessionHandler = new Session($db);
 session_set_save_handler($sessionHandler);
-session_name(getenv('SESSION_NAME'));
+session_name($_ENV['SESSION_NAME']);
 session_start();
 
 // Create app
-$app = new Slim\App([
+$app = new App([
     'settings' => [
-        'displayErrorDetails' => getenv('APP_DEBUG') === "true",
+        'displayErrorDetails' => $_ENV['APP_DEBUG'] === "true",
         'determineRouteBeforeAppMiddleware' => true
     ]
 ]);

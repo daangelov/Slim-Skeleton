@@ -2,18 +2,28 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
+use PDO;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Views\Twig;
 
 /**
  * @property Twig view
+ * @property PDO db
  */
 class HomeController extends Controller
 {
     public function index(Request $request, Response $response)
     {
-        return $this->view->render($response, 'home.twig');
+        $user = User::where($this->db, ['email' => 'drago@test.com']);
+        if (!$user) {
+            // Error
+            return $this->view->render($response, 'home.twig', compact('user'));
+        }
+
+        $user = $user->fetch(PDO::FETCH_OBJ);
+        return $this->view->render($response, 'home.twig', compact('user'));
     }
 
     // Basic methods

@@ -37,14 +37,13 @@ class Db
     public static function getConnection()
     {
         try {
-            $db = new PDO(
-                'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_NAME'),
-                getenv('DB_USER'),
-                getenv('DB_PASS')
-            );
+            $connectionString = 'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . ';charset=utf8';
+
+            $db = new PDO($connectionString, $_ENV['DB_USER'], $_ENV['DB_PASS']);
+
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            $error = getenv('APP_DEBUG') === "true" ?
+            $error = $_ENV['APP_DEBUG'] === "true" ?
                 "Error: " . $e->getMessage() : "Error: Can't connect to database.";
 
             die($error);

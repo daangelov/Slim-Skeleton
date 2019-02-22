@@ -11,7 +11,7 @@ $container['view'] = function ($container) {
 
     $view = new Slim\Views\Twig(dirname(__DIR__) . '/resources/views/', [
         'cache' => false,
-        'debug' => getenv('APP_DEBUG') === "true"
+        'debug' => $_ENV['APP_DEBUG'] === "true"
     ]);
 
     // Instantiate and add Slim specific extension

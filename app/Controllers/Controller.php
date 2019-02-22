@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use Interop\Container\ContainerInterface;
 
-abstract class Controller
+class Controller
 {
     protected $container;
 
